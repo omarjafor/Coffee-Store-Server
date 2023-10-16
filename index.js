@@ -94,7 +94,7 @@ async function run() {
             const filter = { email: user.email }
             const updateDoc = {
                 $set: {
-                    lastLoggedAt: user.lastLoggedAt
+                    lastLoggedIn: user.lastLoggedIn
                 }
             }
             const result = await userCollection.updateOne(filter, updateDoc)
