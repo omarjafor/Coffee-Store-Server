@@ -75,7 +75,7 @@ async function run() {
             res.send(result);
         })
 
-        //User Releted DB Collection 
+        //User Releted DB Collection Apis
         app.get('/user', async (req, res) => {
             const cursor = userCollection.find();
             const result = await cursor.toArray();
