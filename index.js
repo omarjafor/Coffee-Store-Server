@@ -130,7 +130,13 @@ async function run() {
             const updatedManager = req.body;
             const manager = {
                 $set:{
-                    
+                    name : updatedManager.name,
+                    email : updatedManager.email,
+                    password : updatedManager.password, 
+                    salary : updatedManager.salary, 
+                    date : updatedManager.date, 
+                    details : updatedManager.details, 
+                    photo : updatedManager.photo
                 }
             }
             const result = await managerCollection.updateOne(filter, manager, options)
