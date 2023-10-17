@@ -8,8 +8,6 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-
-
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.21hcnfr.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -27,6 +25,7 @@ async function run() {
         await client.connect();
         const coffeeCollection = client.db('coffeeDB').collection('coffee');
         const userCollection = client.db('coffeeDB').collection('user');
+        const managerCollection = client.db('coffeeDB').collection('managers');
 
         app.get('/coffee', async(req, res) => {
             const cursor = coffeeCollection.find();
@@ -84,7 +83,6 @@ async function run() {
 
         app.post('/user', async(req, res) => {
             const user =req.body;
-            console.log(user);
             const result = await userCollection.insertOne(user);
             res.send(result);
         })
@@ -105,6 +103,24 @@ async function run() {
             const id = req.params.id;
             const query = {_id: new ObjectId(id)}
             const result = await userCollection.deleteOne(query);
+            res.send(result);
+        })
+
+        // Managers Related API 
+        app.get('/managers', async(req, res) => {
+            const cursor = managerCollection.find();
+            const result = await cursor.toArray();
+            res.send(result);
+        })
+        app.post('/managers', async(req, res) => {
+            const manager = req.body;
+            const result = await managerCollection.insertOne(manager);
+            res.send(result);
+        })
+        app.delete('/managers/:id', async(req, res) => {
+            const id = req.params.id;
+            const query = { _id: new ObjectId(id)}
+            const result = await managerCollection.deleteOne(query);
             res.send(result);
         })
 
