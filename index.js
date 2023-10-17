@@ -123,6 +123,20 @@ async function run() {
             const result = await managerCollection.insertOne(manager);
             res.send(result);
         })
+        app.put('/managers/:id', async (req, res) => {
+            const id = req.params.id;
+            const filter = { _id: new ObjectId(id) }
+            const options = { upsert: true };
+            const updatedManager = req.body;
+            const manager = {
+                $set:{
+                    
+                }
+            }
+            const result = await managerCollection.updateOne(filter, manager, options)
+            res.send(result)
+
+        })
         app.delete('/managers/:id', async(req, res) => {
             const id = req.params.id;
             const query = { _id: new ObjectId(id)}
