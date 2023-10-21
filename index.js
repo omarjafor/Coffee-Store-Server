@@ -136,6 +136,7 @@ async function run() {
                     salary : updatedManager.salary, 
                     date : updatedManager.date, 
                     details : updatedManager.details, 
+                    photo : updatedManager.photo
                 }
             }
             const result = await managerCollection.updateOne(filter, manager, options)
